@@ -1,0 +1,276 @@
+{
+	"info": {
+		"_postman_id": "98594403-7f96-4f93-8725-f9fa0dd72754",
+		"name": "Запросы для товаров",
+		"description": "Запросы отвечающие за получение и фильрацию товаров",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32162422"
+	},
+	"item": [
+		{
+			"name": "api/products",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrf-token}}",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					},
+					{
+						"key": "Access-Control-Allow-Credentials",
+						"value": "true",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/products?minPrice=11620.46&maxPrice=696933.33&minWidth=17.31&maxWidth=572.28&minHeight=7&maxHeight=996.69&minWeight=14.02&maxWeight=900.14",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"products"
+					],
+					"query": [
+						{
+							"key": "category[]",
+							"value": "01j14xw6szqk6z4b1dn54g8084",
+							"disabled": true
+						},
+						{
+							"key": "category[]",
+							"value": "01j14xw6t5y5twfy1d7228zs8r",
+							"disabled": true
+						},
+						{
+							"key": "minPrice",
+							"value": "11620.46"
+						},
+						{
+							"key": "maxPrice",
+							"value": "696933.33"
+						},
+						{
+							"key": "minWidth",
+							"value": "17.31"
+						},
+						{
+							"key": "maxWidth",
+							"value": "572.28"
+						},
+						{
+							"key": "minHeight",
+							"value": "7"
+						},
+						{
+							"key": "maxHeight",
+							"value": "996.69"
+						},
+						{
+							"key": "minWeight",
+							"value": "14.02"
+						},
+						{
+							"key": "maxWeight",
+							"value": "900.14"
+						}
+					]
+				},
+				"description": "### GET /api/products\n\nЭто POST-запрос на `/api/products`. для того, чтобы получить товары отфильтрованые по различным по параметрам\n\n#### Фильтры (в запросе)\n\n- category\\[\\] (array of strings): ID (ULID) категорий, из которых получить товары\n    \n- Цена (в рублях)\n    \n    - minPrice (number)\n        \n    - maxPrice (number)\n        \n- Ширина\n    \n    - minWidth (number)\n        \n    - maxWidth (number)\n        \n- Высота\n    \n    - minHeight (number)\n        \n    - maxHeight (number)\n        \n- Вес (в грамах)\n    \n    - minWeight (number)\n        \n    - maxWeight (number)\n        \n\n#### Товар (в ответе)\n\n- id (string): ULID\n    \n- name (string):\n    \n- slug (string): Короткое имя (уникальное), используется в ссылке\n    \n- description (string)\n    \n- category_id (string)\n    \n- price (string)\n    \n- width (string)\n    \n- height (string)\n    \n- weight (string)\n    \n- created_at (datetime): Когда товар был создан\n    \n- updated_at (datetime): Когда товар бы изменён\n    \n\n#### Пример ответа\n\n``` json\n[\n    {\n        \"id\": \"01j14xw70g3x6dznfqx74ehqfk\",\n        \"name\": \"Sed quia.\",\n        \"slug\": \"sed-quia\",\n        \"description\": \"Aliquam eveniet qui ex aspernatur ut ducimus error. Magnam sed dignissimos et ducimus.\",\n        \"category_id\": \"01j14xw6t5y5twfy1d7228zs8r\",\n        \"price\": \"259552.04\",\n        \"width\": \"480.6\",\n        \"height\": \"518.55\",\n        \"weight\": \"392.42\",\n        \"created_at\": \"2024-06-24T10:50:11.000000Z\",\n        \"updated_at\": \"2024-06-24T10:50:11.000000Z\"\n    },\n    {\n        \"id\": \"01j14xw70kpwbsdnr7b40ym9jg\",\n        \"name\": \"Voluptas totam.\",\n        \"slug\": \"voluptas-totam\",\n        \"description\": \"Et laboriosam sint est quae. Est perferendis dolore non facere quia delectus voluptatum.\",\n        \"category_id\": \"01j14xw6t5y5twfy1d7228zs8r\",\n        \"price\": \"508470.41\",\n        \"width\": \"475.11\",\n        \"height\": \"870.99\",\n        \"weight\": \"892\",\n        \"created_at\": \"2024-06-24T10:50:11.000000Z\",\n        \"updated_at\": \"2024-06-24T10:50:11.000000Z\"\n    }\n]\n\n ```"
+			},
+			"response": [
+				{
+					"name": "Успешный запрос",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrf-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Access-Control-Allow-Credentials",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/products?category[]=01j14xw6szqk6z4b1dn54g8084&category[]=01j14xw6t5y5twfy1d7228zs8r&minPrice=11620.46&maxPrice=696933.33&minWidth=17.31&maxWidth=572.28&minHeight=7&maxHeight=996.69&minWeight=14.02&maxWeight=900.14",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"products"
+							],
+							"query": [
+								{
+									"key": "category[]",
+									"value": "01j14xw6szqk6z4b1dn54g8084"
+								},
+								{
+									"key": "category[]",
+									"value": "01j14xw6t5y5twfy1d7228zs8r"
+								},
+								{
+									"key": "minPrice",
+									"value": "11620.46"
+								},
+								{
+									"key": "maxPrice",
+									"value": "696933.33"
+								},
+								{
+									"key": "minWidth",
+									"value": "17.31"
+								},
+								{
+									"key": "maxWidth",
+									"value": "572.28"
+								},
+								{
+									"key": "minHeight",
+									"value": "7"
+								},
+								{
+									"key": "maxHeight",
+									"value": "996.69"
+								},
+								{
+									"key": "minWeight",
+									"value": "14.02"
+								},
+								{
+									"key": "maxWeight",
+									"value": "900.14"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Mon, 24 Jun 2024 10:56:07 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "http://localhost:3000"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						}
+					],
+					"cookie": [],
+					"body": "[\n    {\n        \"id\": \"01j14xw70g3x6dznfqx74ehqfk\",\n        \"name\": \"Sed quia.\",\n        \"slug\": \"sed-quia\",\n        \"description\": \"Aliquam eveniet qui ex aspernatur ut ducimus error. Magnam sed dignissimos et ducimus.\",\n        \"category_id\": \"01j14xw6t5y5twfy1d7228zs8r\",\n        \"price\": \"259552.04\",\n        \"width\": \"480.6\",\n        \"height\": \"518.55\",\n        \"weight\": \"392.42\",\n        \"created_at\": \"2024-06-24T10:50:11.000000Z\",\n        \"updated_at\": \"2024-06-24T10:50:11.000000Z\"\n    },\n    {\n        \"id\": \"01j14xw70kpwbsdnr7b40ym9jg\",\n        \"name\": \"Voluptas totam.\",\n        \"slug\": \"voluptas-totam\",\n        \"description\": \"Et laboriosam sint est quae. Est perferendis dolore non facere quia delectus voluptatum.\",\n        \"category_id\": \"01j14xw6t5y5twfy1d7228zs8r\",\n        \"price\": \"508470.41\",\n        \"width\": \"475.11\",\n        \"height\": \"870.99\",\n        \"weight\": \"892\",\n        \"created_at\": \"2024-06-24T10:50:11.000000Z\",\n        \"updated_at\": \"2024-06-24T10:50:11.000000Z\"\n    },\n    {\n        \"id\": \"01j14xw70qrbtt1rte80vmep2d\",\n        \"name\": \"Quibusdam modi.\",\n        \"slug\": \"quibusdam-modi\",\n        \"description\": \"Dolore velit ut et vitae temporibus. Iure ut quo dicta. Et eos quidem debitis adipisci.\",\n        \"category_id\": \"01j14xw6szqk6z4b1dn54g8084\",\n        \"price\": \"281744.6\",\n        \"width\": \"269.26\",\n        \"height\": \"147.5\",\n        \"weight\": \"454.11\",\n        \"created_at\": \"2024-06-24T10:50:11.000000Z\",\n        \"updated_at\": \"2024-06-24T10:50:11.000000Z\"\n    },\n    {\n        \"id\": \"01j14xw70xgm91kstkfaharbay\",\n        \"name\": \"Necessitatibus hic.\",\n        \"slug\": \"necessitatibus-hic\",\n        \"description\": \"Consequatur provident unde ab officiis animi. Aut voluptatem placeat quo explicabo nisi.\",\n        \"category_id\": \"01j14xw6t5y5twfy1d7228zs8r\",\n        \"price\": \"579045.29\",\n        \"width\": \"408.15\",\n        \"height\": \"38.62\",\n        \"weight\": \"33.35\",\n        \"created_at\": \"2024-06-24T10:50:11.000000Z\",\n        \"updated_at\": \"2024-06-24T10:50:11.000000Z\"\n    },\n    {\n        \"id\": \"01j14xw70zgsvkt82tyssmba5z\",\n        \"name\": \"Accusamus labore.\",\n        \"slug\": \"accusamus-labore\",\n        \"description\": \"Velit voluptas autem ut odio. Vitae qui aut iusto pariatur doloremque nihil.\",\n        \"category_id\": \"01j14xw6t5y5twfy1d7228zs8r\",\n        \"price\": \"221282.47\",\n        \"width\": \"535.28\",\n        \"height\": \"893.55\",\n        \"weight\": \"628.98\",\n        \"created_at\": \"2024-06-24T10:50:11.000000Z\",\n        \"updated_at\": \"2024-06-24T10:50:11.000000Z\"\n    },\n    {\n        \"id\": \"01j14xw719a6czjpc54sthxgmt\",\n        \"name\": \"Nam et non minima.\",\n        \"slug\": \"nam-et-non-minima\",\n        \"description\": \"Omnis ea autem pariatur autem culpa quas. Illum alias quis corporis tempora consequatur.\",\n        \"category_id\": \"01j14xw6t5y5twfy1d7228zs8r\",\n        \"price\": \"230699.94\",\n        \"width\": \"226.8\",\n        \"height\": \"721.82\",\n        \"weight\": \"65.64\",\n        \"created_at\": \"2024-06-24T10:50:11.000000Z\",\n        \"updated_at\": \"2024-06-24T10:50:11.000000Z\"\n    },\n    {\n        \"id\": \"01j14xw71khzah3yxwkzd51yxd\",\n        \"name\": \"Omnis minus.\",\n        \"slug\": \"omnis-minus\",\n        \"description\": \"Hic molestiae eos enim qui officiis neque. Modi incidunt consectetur saepe dolorum ex maxime rem.\",\n        \"category_id\": \"01j14xw6t5y5twfy1d7228zs8r\",\n        \"price\": \"579868.07\",\n        \"width\": \"490.65\",\n        \"height\": \"505.68\",\n        \"weight\": \"315.58\",\n        \"created_at\": \"2024-06-24T10:50:11.000000Z\",\n        \"updated_at\": \"2024-06-24T10:50:11.000000Z\"\n    },\n    {\n        \"id\": \"01j14xw7295zk4ad9gvqvc0sqa\",\n        \"name\": \"Temporibus suscipit.\",\n        \"slug\": \"temporibus-suscipit\",\n        \"description\": \"Commodi ullam est illo. Et saepe dicta eum ut magnam ullam sit ducimus.\",\n        \"category_id\": \"01j14xw6t5y5twfy1d7228zs8r\",\n        \"price\": \"218797.21\",\n        \"width\": \"88.18\",\n        \"height\": \"702.64\",\n        \"weight\": \"135.57\",\n        \"created_at\": \"2024-06-24T10:50:11.000000Z\",\n        \"updated_at\": \"2024-06-24T10:50:11.000000Z\"\n    },\n    {\n        \"id\": \"01j14xw72bqgdg4r1de7tt6wx3\",\n        \"name\": \"Modi dignissimos ab.\",\n        \"slug\": \"modi-dignissimos-ab\",\n        \"description\": \"Doloribus sed laudantium ut voluptatem. Quia eum quasi vero et.\",\n        \"category_id\": \"01j14xw6szqk6z4b1dn54g8084\",\n        \"price\": \"335359.04\",\n        \"width\": \"463.49\",\n        \"height\": \"818.83\",\n        \"weight\": \"720.59\",\n        \"created_at\": \"2024-06-24T10:50:11.000000Z\",\n        \"updated_at\": \"2024-06-24T10:50:11.000000Z\"\n    },\n    {\n        \"id\": \"01j14xw72tm6e9f7m6xt5hpr97\",\n        \"name\": \"Quidem magnam.\",\n        \"slug\": \"quidem-magnam\",\n        \"description\": \"Perspiciatis quasi dolor in voluptatem. Deleniti corrupti sunt eligendi excepturi quaerat.\",\n        \"category_id\": \"01j14xw6szqk6z4b1dn54g8084\",\n        \"price\": \"646931.5\",\n        \"width\": \"39.77\",\n        \"height\": \"738.87\",\n        \"weight\": \"207.98\",\n        \"created_at\": \"2024-06-24T10:50:11.000000Z\",\n        \"updated_at\": \"2024-06-24T10:50:11.000000Z\"\n    },\n    {\n        \"id\": \"01j14xw72zbd9mdwky33gvg1yw\",\n        \"name\": \"Architecto enim.\",\n        \"slug\": \"architecto-enim\",\n        \"description\": \"Culpa quia est deleniti voluptatum. Quas dolore voluptas vitae enim expedita.\",\n        \"category_id\": \"01j14xw6szqk6z4b1dn54g8084\",\n        \"price\": \"338783.48\",\n        \"width\": \"146.23\",\n        \"height\": \"963.06\",\n        \"weight\": \"626.28\",\n        \"created_at\": \"2024-06-24T10:50:11.000000Z\",\n        \"updated_at\": \"2024-06-24T10:50:11.000000Z\"\n    },\n    {\n        \"id\": \"01j14xw73715p0aadwcsh5a4ts\",\n        \"name\": \"Iusto ratione.\",\n        \"slug\": \"iusto-ratione\",\n        \"description\": \"Consequatur expedita reprehenderit ratione et. Et placeat quis magnam rerum repudiandae.\",\n        \"category_id\": \"01j14xw6t5y5twfy1d7228zs8r\",\n        \"price\": \"181344.47\",\n        \"width\": \"106.13\",\n        \"height\": \"801.07\",\n        \"weight\": \"428.79\",\n        \"created_at\": \"2024-06-24T10:50:11.000000Z\",\n        \"updated_at\": \"2024-06-24T10:50:11.000000Z\"\n    },\n    {\n        \"id\": \"01j14xw73hzt76zwys831ccy51\",\n        \"name\": \"Quis sunt.\",\n        \"slug\": \"quis-sunt\",\n        \"description\": \"Sunt vel nobis dicta voluptas. Veniam quasi minus aut architecto quia et et.\",\n        \"category_id\": \"01j14xw6t5y5twfy1d7228zs8r\",\n        \"price\": \"517302.71\",\n        \"width\": \"290.48\",\n        \"height\": \"929.19\",\n        \"weight\": \"376.57\",\n        \"created_at\": \"2024-06-24T10:50:11.000000Z\",\n        \"updated_at\": \"2024-06-24T10:50:11.000000Z\"\n    },\n    {\n        \"id\": \"01j14xw751z6pt1s534mh4dj4b\",\n        \"name\": \"Exercitationem id.\",\n        \"slug\": \"exercitationem-id\",\n        \"description\": \"Molestias quia necessitatibus consequatur. Natus facilis veritatis sequi est.\",\n        \"category_id\": \"01j14xw6szqk6z4b1dn54g8084\",\n        \"price\": \"513477.7\",\n        \"width\": \"80.01\",\n        \"height\": \"587.88\",\n        \"weight\": \"252.37\",\n        \"created_at\": \"2024-06-24T10:50:11.000000Z\",\n        \"updated_at\": \"2024-06-24T10:50:11.000000Z\"\n    },\n    {\n        \"id\": \"01j14xw767gc0f1n4jgf0zk0fc\",\n        \"name\": \"Doloribus quia.\",\n        \"slug\": \"doloribus-quia\",\n        \"description\": \"Esse eveniet qui et non. Rem repudiandae doloremque distinctio dicta esse aperiam qui blanditiis.\",\n        \"category_id\": \"01j14xw6szqk6z4b1dn54g8084\",\n        \"price\": \"137877.06\",\n        \"width\": \"561.08\",\n        \"height\": \"100.47\",\n        \"weight\": \"94.63\",\n        \"created_at\": \"2024-06-24T10:50:11.000000Z\",\n        \"updated_at\": \"2024-06-24T10:50:11.000000Z\"\n    },\n    {\n        \"id\": \"01j14xw777sy6bqnw6d2m2zk3n\",\n        \"name\": \"Odio dicta sequi.\",\n        \"slug\": \"odio-dicta-sequi\",\n        \"description\": \"Sint rerum officia vel sit. Quia voluptas aut ducimus excepturi voluptatum.\",\n        \"category_id\": \"01j14xw6t5y5twfy1d7228zs8r\",\n        \"price\": \"343263.64\",\n        \"width\": \"422.72\",\n        \"height\": \"858.62\",\n        \"weight\": \"565.87\",\n        \"created_at\": \"2024-06-24T10:50:11.000000Z\",\n        \"updated_at\": \"2024-06-24T10:50:11.000000Z\"\n    }\n]"
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const baseUrl = pm.collectionVariables.get(\"base_url\");\r",
+					"console.log(baseUrl);\r",
+					"pm.sendRequest({\r",
+					"    url: `${baseUrl}/sanctum/csrf-cookie`,\r",
+					"    method: \"GET\"\r",
+					"}, function (error, response, { cookies }) {\r",
+					"    if (!error) {\r",
+					"        pm.collectionVariables.set('xsrf-token', cookies.get('XSRF-TOKEN'));\r",
+					"    }\r",
+					"})"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {\r",
+					"    pm.response.to.have.status(200);\r",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://127.0.0.1:8000"
+		},
+		{
+			"key": "email",
+			"value": "fghfghhz@fghfghfgh.hu"
+		},
+		{
+			"key": "password",
+			"value": "B9ca*Lb$m]NUp5?"
+		},
+		{
+			"key": "xsrf-token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}

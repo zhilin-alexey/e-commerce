@@ -1,0 +1,787 @@
+{
+	"info": {
+		"_postman_id": "a4c1a3ba-6fb2-49d8-b335-98bb7239353c",
+		"name": "Запросы аутентификации",
+		"description": "Запросы отвечающие за вход/выход, регистрацию и получение текущего пользователя",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "32162422"
+	},
+	"item": [
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const baseUrl = pm.collectionVariables.get(\"base_url\");\r",
+							"console.log(baseUrl);\r",
+							"pm.sendRequest({\r",
+							"    url: `${baseUrl}/sanctum/csrf-cookie`,\r",
+							"    method: \"GET\"\r",
+							"}, function (error, response, { cookies }) {\r",
+							"    if (!error) {\r",
+							"        pm.collectionVariables.set('xsrf-token', cookies.get('XSRF-TOKEN'));\r",
+							"    }\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": "Получить json",
+						"type": "text"
+					},
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrf-token}}",
+						"description": "Токен сайта",
+						"type": "text"
+					},
+					{
+						"key": "Access-Control-Allow-Credentials",
+						"value": "true",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/login?email={{email}}&password={{password}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "email",
+							"value": "{{email}}"
+						},
+						{
+							"key": "password",
+							"value": "{{password}}"
+						}
+					]
+				},
+				"description": "### POST /login\n\nЭто POST-запрос на `/login`. для того, чтобы аутентификацировать пользователя\n\n#### Параметры запроса\n\n- email (string)\n    \n- password (string)\n    \n\nУспешный реквест возвращает `204 No Content` и создаёт сессию на сервере"
+			},
+			"response": [
+				{
+					"name": "Успешный вход и переадресация на главную",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"description": "Получить json",
+								"type": "text"
+							},
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrf-token}}",
+								"description": "Токен сайта",
+								"type": "text"
+							},
+							{
+								"key": "Access-Control-Allow-Credentials",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/login?email={{email}}&password={{password}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"login"
+							],
+							"query": [
+								{
+									"key": "email",
+									"value": "{{email}}"
+								},
+								{
+									"key": "password",
+									"value": "{{password}}"
+								}
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 23 Jun 2024 14:36:21 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "http://localhost:3000"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "XSRF-TOKEN=eyJpdiI6InJiWE5QQVBQUHRZVHdaZUV2NExQL1E9PSIsInZhbHVlIjoiditRS1RhY0VOTXVrdXZpMlpvMSt1UFBPN0hONFBLMUlKRm9TQnZxRFhGZnBFV3pReVZBVHhYVVNKelhDemFyRS80UWgrTHdGSVEySzdqWUNnM29NN0ovNlJINjluY0dyUmxLNXpiTHFHZS82SFdRYkUrNkpvS3YyOHV6UkdBVXUiLCJtYWMiOiIyMThlNDUwOWZmOWRlMTljYjQ1ZDdlZDk0ZDY2YzAwNDJhNzg0ZWFiYjkzOWMxYjdiNTUyNmRkMWYyZDU3ZTQ3IiwidGFnIjoiIn0%3D; expires=Sun, 23 Jun 2024 16:36:21 GMT; Max-Age=7200; path=/; samesite=lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "laravel_session=eyJpdiI6ImRKNldhWDJPQU5BVURHSHJyWDF3bnc9PSIsInZhbHVlIjoicGNpYXhWbUlFdWFMT2ZWOWpHKys0K0I5dmIvMEJDYUk1U2gyV3NHeG9sU0JSYUxQYnQzUEl1QVNucVRTVmxGa2NQWlY4U1ZicFJtcElDTGdQT21rc0JqUWNKaXIwSytHTkwwNDZYcXl3Sm5IKzRaK25QNUt4WHB3Vjhlc0RkcUQiLCJtYWMiOiI2Y2NlNjgwYmViODA0OTU4ZWFkZjhmNDM1MWIwNzRkNzU5YjYxMDU4MWZiNDM2NTA5MjJhZDY3Y2I4MjA3NDZlIiwidGFnIjoiIn0%3D; expires=Sun, 23 Jun 2024 16:36:21 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"Laravel\": \"11.11.1\"\n}"
+				}
+			]
+		},
+		{
+			"name": "api/user",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrf-token}}",
+						"description": "Токен сайта",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": "Получить json",
+						"type": "text"
+					},
+					{
+						"key": "Referer",
+						"value": "{{base_url}}",
+						"description": "Откуда брать сессию",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/user",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"user"
+					]
+				},
+				"description": "### POST /login\n\nЭто GET-запрос на `/login`. для того, чтобы получить информацию о текущей сессии\n\nУспешный реквест возвращает `200 OK` и объект User в JSON\n\n### User\n\n- `id` (string): ID в виде ULID\n    \n- `name` (string)\n    \n- `email` (string)\n    \n- `phone` (string)\n    \n- `address` (string)\n    \n- `email_verified_at` (string or null): Не используется\n    \n- `created_at` (string): Дата создания аккаунта\n    \n- `updated_at` (string): Дата редактирования аккаунта"
+			},
+			"response": [
+				{
+					"name": "Вход не выполнен",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrf-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"status": "Unauthorized",
+					"code": 401,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 23 Jun 2024 14:28:08 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "http://localhost:3000"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"message\": \"Unauthenticated.\"\n}"
+				},
+				{
+					"name": "Вход выполнен",
+					"originalRequest": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrf-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Referer",
+								"value": "{{base_url}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/user",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"user"
+							]
+						}
+					},
+					"status": "OK",
+					"code": 200,
+					"_postman_previewlanguage": "json",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 23 Jun 2024 14:40:06 GMT"
+						},
+						{
+							"key": "Content-Type",
+							"value": "application/json"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "http://localhost:3000"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "XSRF-TOKEN=eyJpdiI6InozbTBINXpGU2VwQTJtaWtWU0NqMXc9PSIsInZhbHVlIjoiQjJ3Zzd5NlVHTnZHZUNkeTdSekoyNzZWcmw5STBlcWlncDU5RlJFbGlrWlJKbGNybWFVdWRla25sUk0xZlgvMGtXZjVqMmlTZk5zb0JYQkRHbm0reGp1Sjlnc01XUi9mWTU3TEdKNTZEZHl0Y2tza25LTUxodnFGaDJPM0Ixdm8iLCJtYWMiOiIxNjAwODIxZTliN2U5ODY2Y2ZiNDBiYTdlZDQ3ZjY5NWMwNTRiOWNlMGJlNjE1MzEwZTdmYzAyODMwYTQzNmNkIiwidGFnIjoiIn0%3D; expires=Sun, 23 Jun 2024 16:40:06 GMT; Max-Age=7200; path=/; samesite=lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "laravel_session=eyJpdiI6IktXakV4d3lUNzlFYUJwL2Z0RlRTY0E9PSIsInZhbHVlIjoiL3NBQXBCenhUYWx5OUdrTlgrdmlZK1gxU2g5MjVjSVlGazNhMjVncG5vZU5oZExTK05PNFJ1cUw4QmtkSG8yYUpndVU5TXZQT2ZMS21yTnVKMk1DUlRmTVFBWGZodE5vQURBWm1ZV1ZlRkZMUmZEcWhQdmhONnpQa045VE92T3QiLCJtYWMiOiI4Yzc2N2Y1ZmRiY2Q0OWM3NDE2ZDhiMmM5NTQwYjlkZGMzYzRmMGUxMDU2OGQ1MDExMWFlNDkwYzllM2Y4NDlmIiwidGFnIjoiIn0%3D; expires=Sun, 23 Jun 2024 16:40:06 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+						}
+					],
+					"cookie": [],
+					"body": "{\n    \"id\": \"01j129kezvmcszbyv4530tqajy\",\n    \"name\": \"Gftgdtrutr\",\n    \"email\": \"fghfghhz@fghfghfgh.hu\",\n    \"phone\": \"+79536463464\",\n    \"address\": \"45363, etertreteterte erte ert, 45\",\n    \"email_verified_at\": null,\n    \"created_at\": \"2024-06-23T10:17:24.000000Z\",\n    \"updated_at\": \"2024-06-23T10:17:24.000000Z\"\n}"
+				}
+			]
+		},
+		{
+			"name": "register",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"const baseUrl = pm.collectionVariables.get(\"base_url\");\r",
+							"console.log(baseUrl);\r",
+							"pm.sendRequest({\r",
+							"    url: `${baseUrl}/sanctum/csrf-cookie`,\r",
+							"    method: \"GET\"\r",
+							"}, function (error, response, { cookies }) {\r",
+							"    if (!error) {\r",
+							"        pm.collectionVariables.set('xsrf-token', cookies.get('XSRF-TOKEN'));\r",
+							"    }\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrf-token}}",
+						"description": "Токен сайта",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": "Получить json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/register?name=Andrey&email=example1@gmail.com&address=3-Ya Roshchinskaya Ulitsa, 8/7, Moskva, Russia, 115191&password=RTI()$I($%IKT()I&password_confirmation=RTI()$I($%IKT()I",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"register"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Andrey"
+						},
+						{
+							"key": "email",
+							"value": "example1@gmail.com"
+						},
+						{
+							"key": "phone",
+							"value": "+16149169810",
+							"disabled": true
+						},
+						{
+							"key": "address",
+							"value": "3-Ya Roshchinskaya Ulitsa, 8/7, Moskva, Russia, 115191"
+						},
+						{
+							"key": "password",
+							"value": "RTI()$I($%IKT()I"
+						},
+						{
+							"key": "password_confirmation",
+							"value": "RTI()$I($%IKT()I"
+						}
+					]
+				},
+				"description": "### POST /register\n\nStartFragmentЭто POST-запрос на `/register`. для того, чтобы создать нового пользователя и сразу войти в его аккаунт\n\n#### Параметры запроса\n\n- `name` (text)\n    \n- `email` (text)\n    \n- `phone` (text): Номер телефона\n    \n- `address` (text): Физический адрес\n    \n- `password` (text)\n    \n- `password_confirmation` (text): Должно совпадать с паролем\n    \n\nУспешный реквест возвращает `204 No Content`, создаёт пользователя на сервере и переадресует главную"
+			},
+			"response": [
+				{
+					"name": "Успешная регистрация",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrf-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Access-Control-Allow-Credentials",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/register?name=Andrey&email=example1@gmail.com&address=3-Ya Roshchinskaya Ulitsa, 8/7, Moskva, Russia, 115191&password=RTI()$I($%IKT()I&password_confirmation=RTI()$I($%IKT()I",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"register"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "Andrey"
+								},
+								{
+									"key": "email",
+									"value": "example1@gmail.com"
+								},
+								{
+									"key": "phone",
+									"value": "895364634657",
+									"disabled": true
+								},
+								{
+									"key": "address",
+									"value": "3-Ya Roshchinskaya Ulitsa, 8/7, Moskva, Russia, 115191"
+								},
+								{
+									"key": "password",
+									"value": "RTI()$I($%IKT()I"
+								},
+								{
+									"key": "password_confirmation",
+									"value": "RTI()$I($%IKT()I"
+								}
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 23 Jun 2024 15:24:24 GMT"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "http://localhost:3000"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "XSRF-TOKEN=eyJpdiI6IlgxNFZOZ2ZSdXUvZGg1K0lkZWNIdmc9PSIsInZhbHVlIjoib3NweUUvRUN4RXN2RVI0SnhuZzQxcVorTXE0TmU4UnU5VWRBZWVFdXlsOGk5SFpZWFFyYkdwSHNTc2NwUUNVUnpHd2J3UjlmcG1OYzExTFMwdU9ycUNmejRUQmo0M2ZFczhFVHJzMEcrcHR5UnNqdnlqbUZ1d0FKVzFZVjZ5b1EiLCJtYWMiOiIxN2FhODNjYjQyY2I3ODM3OWJkY2I1OTJiNTk5NWJhOGQ3MTBiNTdjMmNkNjEzNzFkNTViMWI2NzQxYzg5ZDA1IiwidGFnIjoiIn0%3D; expires=Sun, 23 Jun 2024 17:24:24 GMT; Max-Age=7200; path=/; samesite=lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "laravel_session=eyJpdiI6InNkWDU2d2ErdTVlRzN0eUh3dmVVUkE9PSIsInZhbHVlIjoianRhRnptWVJ3STFJM0Q3bVNXcWx3Q0l0NVFNTFhPMzRhemJJUm5ZYWZrcFk1c0k4T1J0ZnhlUC9IQm5YWDRLcjZ2am94RGRjckdva2MzWitqdGRqZCtHOGdieVhoWmhmQU9QZklZY2xDZ1FPQitlTnd0NHhpVnVjS0pCaGVnQjEiLCJtYWMiOiJhZTk2NWRkYzgzMDEzMDdmN2U5MzVhZDhmNjdmNmRiODQzODUzNzkzNjZmZTE1NDc2MWU0ZmE1YjA1ZWNhMjNlIiwidGFnIjoiIn0%3D; expires=Sun, 23 Jun 2024 17:24:24 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "logout",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const baseUrl = pm.collectionVariables.get(\"base_url\");\r",
+							"console.log(baseUrl);\r",
+							"pm.sendRequest({\r",
+							"    url: `${baseUrl}/sanctum/csrf-cookie`,\r",
+							"    method: \"GET\"\r",
+							"}, function (error, response, { cookies }) {\r",
+							"    if (!error) {\r",
+							"        pm.collectionVariables.set('xsrf-token', cookies.get('XSRF-TOKEN'));\r",
+							"    }\r",
+							"})"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "X-XSRF-TOKEN",
+						"value": "{{xsrf-token}}",
+						"description": "Токен сайта",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": "Получить json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/logout",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"logout"
+					]
+				},
+				"description": "### POST /login\n\nЭто POST-запрос на `/logout`. для того, чтобы сбрасывать сесиию пользователя (выходить из аккаунта)\n\nУспешный реквест возвращает `204 No Content` и сбрасывает сессию"
+			},
+			"response": [
+				{
+					"name": "Успешный выход",
+					"originalRequest": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-XSRF-TOKEN",
+								"value": "{{xsrf-token}}",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "application/json",
+								"type": "text"
+							},
+							{
+								"key": "Access-Control-Allow-Credentials",
+								"value": "true",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"status": "No Content",
+					"code": 204,
+					"_postman_previewlanguage": "plain",
+					"header": [
+						{
+							"key": "Host",
+							"value": "127.0.0.1:8000"
+						},
+						{
+							"key": "Connection",
+							"value": "close"
+						},
+						{
+							"key": "X-Powered-By",
+							"value": "PHP/8.2.12"
+						},
+						{
+							"key": "Cache-Control",
+							"value": "no-cache, private"
+						},
+						{
+							"key": "Date",
+							"value": "Sun, 23 Jun 2024 15:23:36 GMT"
+						},
+						{
+							"key": "Access-Control-Allow-Origin",
+							"value": "http://localhost:3000"
+						},
+						{
+							"key": "Access-Control-Allow-Credentials",
+							"value": "true"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "XSRF-TOKEN=eyJpdiI6Ik9uOC9PbVRUallKdE9ONDJRQkJiWEE9PSIsInZhbHVlIjoiUTRTZG5IRnIzYWMvNkRnd2VkVjlLSkNsSmRrdWZ1ZjhmSFRHZTRhMDE5NXdyUWdoZ213UXZZZUlkTklRVUFhdkpOQWJCUTJ2KzBBdkpNWnAvOVgxQzFYZm00YVZldy93enpiV2lSc1NSOUhTSXliWjFDR0dGdmZ3SVp3V21obk8iLCJtYWMiOiIwY2RiOWJmNzFlOGNkYjNiOGM4MDM5YmQxMDFhOTIwYjdmZjEyNGFiMDIyZTMzYjUyMTE3OGZmM2M1OTZiYzRkIiwidGFnIjoiIn0%3D; expires=Sun, 23 Jun 2024 17:23:36 GMT; Max-Age=7200; path=/; samesite=lax"
+						},
+						{
+							"key": "Set-Cookie",
+							"value": "laravel_session=eyJpdiI6ImtTTmVKd0Q4eUNwbVJva0Vpais0NVE9PSIsInZhbHVlIjoieWlwRFk4aXR6MFl2UGlSR2pzOFNKMUtjOFVTWVRjSHVGbU9JRlJaVGI2NEtxWGZmSHFWQWVCUUJzUXlzOVlDVElnRGxpM3k1ZGdBOXFQTHdrMElOUVJGWjdXY2RDa3AwdlNkaUVPUVYzdVN6a0J3SlJWNXArdWl0OFdLOGxMb3UiLCJtYWMiOiIzZDRmOTNiODczMmFlNGRjODJhNjg2YjcwZmFmZmUyMmUzMGRjNTFiOWNmYTU3NTNiZGIwNzdhYmFmMjJjOGFiIiwidGFnIjoiIn0%3D; expires=Sun, 23 Jun 2024 17:23:36 GMT; Max-Age=7200; path=/; httponly; samesite=lax"
+						}
+					],
+					"cookie": [],
+					"body": null
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"const baseUrl = pm.collectionVariables.get(\"base_url\");\r",
+					"console.log(baseUrl);\r",
+					"pm.sendRequest({\r",
+					"    url: `${baseUrl}/sanctum/csrf-cookie`,\r",
+					"    method: \"GET\"\r",
+					"}, function (error, response, { cookies }) {\r",
+					"    if (!error) {\r",
+					"        pm.collectionVariables.set('xsrf-token', cookies.get('XSRF-TOKEN'));\r",
+					"    }\r",
+					"})"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 200\", function () {\r",
+					"    pm.response.to.have.status(200);\r",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://127.0.0.1:8000"
+		},
+		{
+			"key": "email",
+			"value": "fghfghhz@fghfghfgh.hu"
+		},
+		{
+			"key": "password",
+			"value": "B9ca*Lb$m]NUp5?"
+		},
+		{
+			"key": "xsrf-token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
